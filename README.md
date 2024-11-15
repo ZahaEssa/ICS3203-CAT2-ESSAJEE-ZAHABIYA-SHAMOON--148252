@@ -13,32 +13,20 @@ This program asks the user to enter a number and then classifies it as either **
 
 ### How to Compile and Run
 
-1. **Install NASM (Netwide Assembler)**:
-   - You need to have NASM installed to assemble the code. On Linux, you can install it like this:
-     ```bash
-     sudo apt install nasm
-     ```
-
-2. **Assemble and Link the Code**:
+1. **Assemble and Link the Code**:
    - First, assemble the program with NASM:
      ```bash
-     nasm -f elf32 -o number_classifier.o number_classifier.asm
+     nasm -f elf32 -o Task1_ControlFlow.o Task1_ControlFlowr.asm
      ```
    - Then, link the object file to create an executable:
      ```bash
-     ld -m elf_i386 -o number_classifier number_classifier.o
+     ld -m elf_i386 -o Task1_ControlFlow Task1_ControlFlow.o
      ```
 
-3. **Run the Program**:
+2. **Run the Program**:
    - Once it's assembled and linked, you can run the program with:
      ```bash
-     ./number_classifier
-     ```
-
-4. **Example**:
-   - When the program asks you to enter a number, if you type `5`, it will output:
-     ```
-     POSITIVE
+     ./Task1_ControlFlow
      ```
 
 ## Insights and Challenges
@@ -79,52 +67,21 @@ The program uses Linux system calls for reading input and writing output. The fa
 
 ### How to Compile and Run
 
-1. **Install NASM (Netwide Assembler)**:
-   - You need to have NASM installed to assemble the code. On Linux, you can install it like this:
-     ```bash
-     sudo apt install nasm
-     ```
-
-2. **Assemble and Link the Code**:
+1. **Assemble and Link the Code**:
    - First, assemble the program with NASM:
      ```bash
-     nasm -f elf32 -o factorial.o factorial.asm
+     nasm -f elf32 -o Task3_Factorial.o Task3_Factorial.asm
      ```
    - Then, link the object file to create an executable:
      ```bash
-     ld -m elf_i386 -o factorial factorial.o
+     ld -m elf_i386 -o Task3_Factorial Task3_Factorial.o
      ```
 
-3. **Run the Program**:
+2. **Run the Program**:
    - Once it's assembled and linked, you can run the program with:
      ```bash
-     ./factorial
+     ./Task3_Factorial
      ```
-
-4. **Example**:
-   - When the program asks you to enter a number, if you type `5`, it will output:
-     ```
-     Factorial is: 120
-     ```
-
-### Program Flow
-
-1. **Prompt the User for Input**:
-   - The program displays the message "Enter a number: " using a system call (`sys_write`).
-   
-2. **Input Handling**:
-   - The program reads the user’s input using another system call (`sys_read`), storing the input as an ASCII character in a buffer.
-
-3. **Factorial Calculation**:
-   - The number is converted from its ASCII representation to an integer (subtracting `'0'`).
-   - The program uses a loop to calculate the factorial, starting from the number and multiplying it by each lower integer until reaching 1.
-
-4. **Displaying the Result**:
-   - The result is converted to a string by repeatedly dividing the result by 10 and extracting the remainder (the last digit).
-   - The string is then displayed using another system call (`sys_write`), followed by a newline character.
-
-5. **Edge Cases**:
-   - If the user enters 0 or 1, the program correctly returns 1 as the factorial value.
 
 ### Insights and Challenges
 
@@ -136,6 +93,56 @@ The program uses Linux system calls for reading input and writing output. The fa
 - **Handling ASCII Input**: Converting user input from ASCII characters to integer values required understanding how to manipulate characters in memory.
 - **String Conversion**: Converting the factorial result to a string for display was a bit tricky, as it required handling division and storing individual digits in reverse order.
   
-### Conclusion
-This assembly program demonstrates the use of basic system calls, loops, and conditional statements to calculate and display the factorial of a number. While assembly language can be challenging, it provides a better understanding of how computers perform operations at the hardware level.
+
+
+
+# Water Level Monitoring System in Assembly Language
+
+## Overview
+This program simulates a water level monitoring system that reads a water level sensor value and performs actions such as turning on a motor, triggering an alarm, or stopping the motor based on predefined thresholds. The result is displayed using Linux system calls, and the program outputs status messages for both the motor and the alarm.
+
+The program uses assembly language to simulate hardware-based control logic, utilizing Linux system calls for output.
+
+### Key Features:
+- Simulates reading a water level from a sensor.
+- Controls a motor based on water level:
+  - Turns on the motor if the water level is low.
+  - Turns off the motor if the water level is moderate or high.
+- Triggers an alarm if the water level exceeds a high threshold.
+- Displays messages indicating the motor and alarm statuses.
+- Handles water levels below, within, and above safe thresholds.
+
+## Instructions
+
+### How to Compile and Run
+
+1. **Assemble and Link the Code**:
+   - First, assemble the program with NASM:
+     ```bash
+     nasm -f elf32 -o Task4_Control.o Task4_Control.asm
+     ```
+   - Then, link the object file to create an executable:
+     ```bash
+     ld -m elf_i386 -o Task4_Control Task4_Control.o
+     ```
+
+2. **Run the Program**:
+   - Once it's assembled and linked, you can run the program with:
+     ```bash
+     ./Task4_Control
+     ```
+
+
+### Insights and Challenges
+
+#### Insights:
+- **Low-level Control**: This program demonstrates how low-level assembly language can be used to control hardware-like systems (such as motors and alarms) based on sensor input.
+- **Using System Calls**: The program utilizes Linux system calls to output information to the terminal, giving insight into how the operating system interacts with assembly code.
+- **Conditional Logic**: The program uses `cmp` and conditional jumps (`jg`, `jl`, `je`) to perform different actions based on the sensor value.
+
+#### Challenges:
+- **Sensor Simulation**: Simulating sensor input and triggering different actions based on the value required careful use of memory locations to store and compare values.
+- **Output Management**: Converting numeric values to meaningful text messages for display required manual management of memory and registers to ensure the output is correct.
+
+
 
