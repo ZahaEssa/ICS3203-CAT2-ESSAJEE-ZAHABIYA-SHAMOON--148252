@@ -1,34 +1,59 @@
-# ICS3203-CAT2-Assembly-<YourName>
+# Number Classifier Program
 
 ## Overview
+This program asks the user to enter a number and then classifies it as either **POSITIVE**, **NEGATIVE**, or **ZERO**. It uses assembly language to handle the input, process the number, and print out the correct message. The program relies on system calls to interact with the user and makes decisions using jumps like `cmp`, `je`, `jg`, `jl`, and `jmp`.
 
-This repository contains the Assembly language programs for the Control Flow and Conditional Logic task (Task 1). The program demonstrates the use of conditional and unconditional jumps to classify a number as "POSITIVE," "NEGATIVE," or "ZERO" based on user input. The logic is implemented with both conditional jumps (`je`, `jg`, `jl`) and an unconditional jump (`jmp`) to streamline the program flow.
+### Key Features:
+- Prompts the user to input a number.
+- Classifies the number as **POSITIVE**, **NEGATIVE**, or **ZERO**.
+- Uses conditional and unconditional jumps to decide the output.
+- Uses system calls to read input and print messages.
 
-### Task 1: Control Flow and Conditional Logic
-- **Purpose**: This program prompts the user to input a number and then classifies the number as either "POSITIVE," "NEGATIVE," or "ZERO." The program demonstrates basic control flow in Assembly, using conditional and unconditional jumps to handle branching logic.
-- **Key Instructions**: 
-  - `cmp`: Compares the number with zero.
-  - `je`, `jg`, `jl`: Conditional jumps used for handling different cases (equal, greater, less than).
-  - `jmp`: Unconditional jump used to skip over certain parts of the program after printing the result.
+## Instructions
 
-## Compiling and Running the Code
+### How to Compile and Run
 
-### Prerequisites
-Ensure you have the following tools installed:
-- **NASM (Netwide Assembler)**: Used to assemble the Assembly code.
-- **GCC (GNU Compiler Collection)**: Used to link the object files.
-- **Linux-based System**: The code was written for a Linux environment, where syscalls (system calls) are used.
+1. **Install NASM (Netwide Assembler)**:
+   - You need to have NASM installed to assemble the code. On Linux, you can install it like this:
+     ```bash
+     sudo apt install nasm
+     ```
 
-### Steps to Compile and Run
+2. **Assemble and Link the Code**:
+   - First, assemble the program with NASM:
+     ```bash
+     nasm -f elf32 -o number_classifier.o number_classifier.asm
+     ```
+   - Then, link the object file to create an executable:
+     ```bash
+     ld -m elf_i386 -o number_classifier number_classifier.o
+     ```
 
-1. **Assemble the Code**:
-   First, you need to assemble the Assembly code using NASM. This generates an object file.
+3. **Run the Program**:
+   - Once it's assembled and linked, you can run the program with:
+     ```bash
+     ./number_classifier
+     ```
 
-   ```bash
-   nasm -f elf32 -o Task1_ControlFlow.o Task1_ControlFlow.asm
- ```bash
-  ld -m elf_i386 -s -o Task1_ControlFlow Task1_ControlFlow.o
+4. **Example**:
+   - When the program asks you to enter a number, if you type `5`, it will output:
+     ```
+     POSITIVE
+     ```
 
- ```bash
-./Task1_ControlFlow
+## Insights and Challenges
 
+### Insights:
+- **Control Flow:** The program makes decisions using conditional jumps (like `je`, `jg`, and `jl`) to check if the number is positive, negative, or zero. This helped me understand how decisions are made in low-level programming.
+  
+- **System Calls:** Using system calls like `sys_write` (for output) and `sys_read` (for input) is pretty interesting since it's a low-level way to interact with the computer’s operating system.
+
+### Challenges:
+- **Converting Input:** Converting the input from ASCII to an integer required subtracting `'0'` from the input character, which was a bit tricky but made sense once I understood it.
+  
+- **Flow Control:** Managing the program flow using jumps can get confusing. It took a bit of trial and error to make sure the program exits correctly after printing the right message.
+
+- **Error Handling:** This version doesn’t handle errors like invalid input (e.g., if the user types letters instead of numbers). In a more complex version, I would add that.
+
+## Conclusion
+This program is a basic example of how to classify numbers using assembly language. Even though assembly is tough at first, it gave me a deeper understanding of how computers process instructions and interact with the operating system. The program is simple but shows the power of control flow and system calls in assembly.
