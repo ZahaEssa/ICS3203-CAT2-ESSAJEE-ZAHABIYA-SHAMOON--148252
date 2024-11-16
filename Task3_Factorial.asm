@@ -1,5 +1,5 @@
 section .data
-    prompt db "Enter a number: ", 0
+    prompt db "Enter a number between 1-9: ", 0
     prompt_len equ $ - prompt
     result_msg db "Factorial is: ", 0
     result_len equ $ - result_msg
@@ -129,31 +129,31 @@ convert_loop:
     pop ebx
     pop eax
     ret
-
 ; Documentation:
 
 ; 1. The program computes the factorial of a number input by the user.
-;    The factorial is calculated by calling a subroutine (function-like code block) to do the math.
+;    - The factorial is calculated by calling a subroutine (function-like code block) to do the math.
 
-; 2. We use the stack to preserve the registers. This means we save the values of certain registers 
-;    before we make changes to them in the subroutine and restore them after the subroutine finishes.
-;    This helps avoid losing important information, especially when we use registers for calculations.
+; 2. We use the stack to preserve the values of certain registers that are modified in the subroutine.
+;    - Before making any changes in the subroutine, we "push" registers (e.g., `eax`, `ebx`) onto the stack.
+;    - After the subroutine finishes, we "pop" the registers back from the stack, restoring their original values.
+;    - This ensures that the main program continues with the same register values that it had before the subroutine call.
 
-; 3. Registers are preserved and restored using `push` and `pop` instructions.
-;    - Before we call the subroutine, we "push" registers (e.g., eax, ebx) onto the stack.
-;    - After the subroutine finishes, we "pop" the registers back from the stack to their original values.
-;    This ensures that the registers have the same values before and after the subroutine, so the main program
-;    can continue as expected without any issues.
+; 3. The `push` and `pop` instructions are used for preserving and restoring register values:
+;    - `push eax` stores the value of the `eax` register onto the stack, ensuring that any changes in the subroutine do not affect its value.
+;    - `pop eax` restores the original value of the `eax` register from the stack, allowing the main program to continue as expected.
+;    - This same process applies to any other registers (such as `ebx`, `ecx`, etc.) that are used in the subroutine, ensuring that all modified registers are safely preserved.
 
 ; 4. The subroutine calculates the factorial by using recursion or a loop (depending on the implementation).
-;    The input value is passed to the subroutine, and the result is returned and placed in a general-purpose register 
-;    (like `eax`), which is where the final result is stored.
+;    - The input value is passed to the subroutine, and the result is returned in a general-purpose register (e.g., `eax`).
+;    - Since registers like `eax` are used to store intermediate results, we must preserve and restore them to maintain the integrity of the program's flow.
 
-; 5. The use of the stack to preserve registers is important in modular programming because it makes sure
-;    that different parts of the program (like the main code and the subroutine) don't interfere with each other.
-;    By saving and restoring the registers on the stack, we keep things organized and avoid errors.
+; 5. The use of the stack is crucial in modular programming because it allows different parts of the program (main code and subroutines) to operate independently.
+;    - By saving register values on the stack and restoring them afterward, we ensure that subroutines do not interfere with the main program's execution.
+;    - This is especially important in **recursive subroutine calls**, where each call needs to operate with its own preserved state.
 
-; 6. In summary, the program calculates the factorial by calling a subroutine, uses the stack to preserve registers,
-;    and ensures the final result is stored in a general-purpose register (like `eax`). The stack is used to protect 
-;    the values of registers while performing the calculation in the subroutine.
+; 6. In summary:
+;    - The program calculates the factorial using a subroutine. Registers like `eax` and `ebx` are pushed and popped to preserve their values.
+;    - The stack temporarily holds these register values, ensuring that after the subroutine call, the program continues with the same state as before.
+;    - This preservation mechanism allows the program to function correctly even with complex calculations, modularity, and recursion.
 

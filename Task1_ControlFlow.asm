@@ -1,7 +1,3 @@
-; Task 1: Control Flow and Conditional Logic
-; This program classifies a number as POSITIVE, NEGATIVE, or ZERO
-; based on the user input using both conditional and unconditional jumps.
-
 section .bss
     user_input resb 10      ; Reserve space for user input (maximum 10 bytes)
 
@@ -147,27 +143,35 @@ done:
 
 
 ; Documentation:
+; Documentation:
 
-; 1. The instruction `cmp eax, 0` is used to compare the input number with 0.
-;    This is the first step to decide whether the number is positive, negative, or zero.
+; 1. The instruction `cmp eax, 0` compares the input number with 0.
+;    This is essential because we need to categorize the number as either zero, positive, or negative.
+;    The comparison sets the flags in the processor, which are used by subsequent conditional jumps.
 
-; 2. `je zero_case` is a conditional jump that goes to the `zero_case` label if the 
-;    number is equal to 0. It's used to print the "ZERO" message when the number is zero.
+; 2. `je zero_case` is a conditional jump that checks if the zero flag is set, 
+;    which happens when the number is exactly 0. If the comparison `cmp eax, 0` results in equality, 
+;    the program jumps to the `zero_case` label. This is used to print the "ZERO" message, 
+;    indicating that the number is neither positive nor negative.
+;    Using `je` ensures that if the number is zero, we immediately handle that case and skip checking for positivity or negativity.
 
-; 3. `jg positive_case` is another conditional jump. It checks if the number is greater 
-;    than 0. If true, the program jumps to the `positive_case` label to print the "POSITIVE" message.
+; 3. `jg positive_case` is another conditional jump. It checks if the sign flag indicates that the number is greater than 0.
+;    If `cmp eax, 0` results in the number being greater than zero, the jump is executed, 
+;    and the program moves to the `positive_case` label to print the "POSITIVE" message.
+;    The `jg` instruction ensures that we only handle numbers greater than zero here, skipping the other checks for negativity and zero.
 
-; 4. `jl negative_case` checks if the number is less than 0. If it is, the program jumps to 
-;    the `negative_case` label and prints the "NEGATIVE" message.
+; 4. `jl negative_case` checks if the number is less than 0. This occurs if the `cmp eax, 0` instruction 
+;    results in a negative value (i.e., the sign flag is set to indicate a negative number).
+;    If true, the program jumps to the `negative_case` label to print the "NEGATIVE" message. 
+;    This ensures that if the number is negative, we don't go through unnecessary steps of checking positivity or zero.
 
-; 5. After printing the message, `jmp done` is used in both the positive and negative cases 
-;    to skip any further checks and exit the program early. This jump is unconditional, 
-;    meaning it will always execute regardless of conditions.
+; 5. After printing the corresponding message in both the `positive_case` and `negative_case` labels,
+;    `jmp done` is used to skip over the remaining parts of the program and exit early.
+;    This is an unconditional jump that ensures we don't go through redundant checks or print statements 
+;    after we have already printed the appropriate message for positive, negative, or zero numbers.
+;    Using `jmp` here ensures that the program flow is optimized and exits immediately after printing the message.
 
-; 6. Finally, after printing the appropriate message, the program exits using the `sys_exit` system call.
-;    This is done in the `done` label after all cases have been handled.
-
-; In summary, the program uses `cmp` to compare the input with 0, then uses `je`, `jg`, and `jl` 
-; to decide whether the number is zero, positive, or negative. The unconditional `jmp done` 
-; helps skip unnecessary code and exits the program after printing the message.
+; 6. Finally, the program exits with the `sys_exit` system call after all cases have been handled. 
+;    This is done in the `done` label, ensuring that regardless of the path taken (zero, positive, or negative), 
+;    the program finishes execution properly without continuing to execute any additional code after the decision-making process.
 
