@@ -1,4 +1,4 @@
-# Number Classifier Program
+# Task One-Number Classifier Program
 
 ## Overview
 This program asks the user to enter a number and then classifies it as either **POSITIVE**, **NEGATIVE**, or **ZERO**. It uses assembly language to handle the input, process the number, and print out the correct message. The program relies on system calls to interact with the user and makes decisions using jumps like `cmp`, `je`, `jg`, `jl`, and `jmp`.
@@ -43,13 +43,51 @@ This program asks the user to enter a number and then classifies it as either **
 
 - **Error Handling:** This version doesn’t handle errors like invalid input (e.g., if the user types letters instead of numbers). In a more complex version, I would add that.
 
+# Task Two-Reverse Array Program 
+
+## Overview
+This program reads five digits (0-9) from the user, stores them in an array, and then reverses the array in place. If the user enters an invalid input (anything other than a digit from 0 to 9), the program will prompt the user to enter a valid digit. The program utilizes Linux system calls to handle input/output.
+
+### Key Features:
+- Prompts the user to enter a single digit (0-9).
+- Validates the input to ensure it is a digit.
+- Stores valid digits in an array.
+- Reverses the array in place using two pointers (left and right indices).
+- Displays the reversed array to the user.
+
+## Instructions
+
+### How to Compile and Run
+
+1. **Assemble and Link the Code**:
+   - First, assemble the program with NASM:
+     ```bash
+     nasm -f elf64 -o Task2_Arrays.o Task2_Arrays.asm
+     ```
+   - Then, link the object file to create an executable:
+     ```bash
+     ld -m elf_i386 -o Task2_Arrays Task2_Arrays.o
+     ```
+
+2. **Run the Program**:
+   - Once it's assembled and linked, you can run the program with:
+     ```bash
+     ./Task2_Arrays
+     ```
+
+### Insights and Challenges
+
+#### Insights:
+- **Memory Management**: This program demonstrates how assembly can be used to manage memory manually. The array is created in the `.bss` section, and input is handled in a buffer.
+- **User Input Validation**: The program includes input validation to ensure that only digits are stored in the array, which helps avoid errors during processing.
+- **Array Reversal Logic**: The reversal of the array is done in place using two indices (left and right) and manual memory access, which is a key concept in understanding array manipulation in assembly language.
+
+#### Challenges:
+- **Handling Input Errors**: Validating user input and managing the input buffer correctly can be tricky, especially when dealing with raw memory.
+- **Memory Boundaries**: The program has to be careful when accessing the array to avoid memory overflows or accessing out-of-bounds memory locations.
 
 
-
-
-
-
-# Factorial Calculator in Assembly Language
+# Task Three-Factorial Calculator 
 
 ## Overview
 This program calculates the factorial of a number entered by the user. The user is prompted to input a number, and the program calculates its factorial using a loop. The result is displayed in ASCII format, with the program outputting the factorial value followed by a newline.
@@ -96,7 +134,7 @@ The program uses Linux system calls for reading input and writing output. The fa
 
 
 
-# Water Level Monitoring System in Assembly Language
+# Task Four-Water Level Monitoring System 
 
 ## Overview
 This program simulates a water level monitoring system that reads a water level sensor value and performs actions such as turning on a motor, triggering an alarm, or stopping the motor based on predefined thresholds. The result is displayed using Linux system calls, and the program outputs status messages for both the motor and the alarm.
