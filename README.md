@@ -1,3 +1,5 @@
+# The documentation required for the assignment is within the .asm files for each task
+
 # Task One-Number Classifier Program
 
 ## Overview
